@@ -14,7 +14,17 @@ namespace Monitoring.MotorolaCableModem.App
     {
         static async Task Main(string[] args)
         {
-            var cmStatus = await MotoMonitor.RequestCMStatus("http://192.168.100.1");
+            var motoBase = "http://192.168.100.1";
+
+            var cmStatus = await MotoMonitor.RequestCMStatus(motoBase);
+            if (cmStatus.Contains("parent.location='login.html'"))
+            {
+                Console.WriteLine("Login required");
+                var password = MotoMonitor.GetPassword();
+                await MotoMonitor.Login(motoBase, "admin", password);
+                cmStatus = await MotoMonitor.RequestCMStatus(motoBase);
+            }
+            
             //var cmStatus = MotoMonitor.GetTestPage();
             var linkStatus = MotoMonitor.ParseLinkStatus(cmStatus);
             var datapoints = linkStatus.Downstream.Select(cs => cs.ToInflux(isDownstream: true, measurement: "cm_link_status", linkStatus.Timestamp))
@@ -33,10 +43,25 @@ namespace Monitoring.MotorolaCableModem.App
                 .GetStringAsync();
         }
 
+        public static async Task Login(string baseUrl, string username, string password)
+        {
+            await baseUrl
+                .AppendPathSegment("login_auth.html")
+                .SetQueryParam("loginUsername", username)
+                .SetQueryParam("loginPassword", password)
+                .GetAsync();
+        }
+
         public static string GetTestPage()
         {
             using (var streamReader = new StreamReader("Page.txt"))
                 return streamReader.ReadToEnd();
+        }
+
+        public static string GetPassword()
+        {
+            using (var streamReader = new StreamReader("password.txt"))
+                return streamReader.ReadToEnd().TrimEnd(' ', '\r', '\n');
         }
 
         public static LinkStatus ParseLinkStatus(string cmStatus)
