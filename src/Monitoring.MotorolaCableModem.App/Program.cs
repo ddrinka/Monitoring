@@ -56,9 +56,7 @@ namespace Monitoring.MotorolaCableModem.App
         public static async Task Login(string baseUrl, string username, string password)
         {
             await baseUrl
-                .AppendPathSegment("login_auth.html")
-                .SetQueryParam("loginUsername", username)
-                .SetQueryParam("loginPassword", password)
+                .AppendPathSegment($"login_auth.html?loginUsername={username}&loginPassword={password}&")
                 .GetAsync();
         }
 
@@ -209,7 +207,7 @@ namespace Monitoring.MotorolaCableModem.App
         {
             await baseUrl
                 .AppendPathSegment("write")
-                .SetQueryParam("database", database)
+                .SetQueryParam("db", database)
                 .PostStringAsync(data)
             ;
         }
