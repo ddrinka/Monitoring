@@ -35,7 +35,7 @@ namespace Monitoring.MotorolaCableModem.App
                     var datapoints = linkStatus.Downstream.Select(cs => cs.ToInflux(isDownstream: true, measurement: "cm_link_status", linkStatus.Timestamp))
                                     .Concat(linkStatus.Upstream.Select(cs => cs.ToInflux(isDownstream: false, measurement: "cm_link_status", linkStatus.Timestamp)));
                     var datapointsAsString = InfluxUploader.DataPointsToString(datapoints);
-                    await InfluxUploader.Upload("http://influxdb:8088", "drinka", datapointsAsString);
+                    await InfluxUploader.Upload("http://influxdb:8086", "drinka", datapointsAsString);
                 }
                 catch (Exception) { }
 
