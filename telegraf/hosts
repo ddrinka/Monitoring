@@ -1,8 +1,8 @@
-google_dns 8.8.8.8
-first_hop 10.112.143.1
-last_local_hop_level3 10.224.253.133
-last_local_hop_telia 62.115.48.241
-seattle_wa_level3 4.14.244.69
-richland_or_level3 4.16.168.34
-sanfran_ca_level3 4.69.140.153
-arlington_va_level3 4.15.44.98
+8.8.8.8 google_dns
+10.112.143.1 first_hop
+10.224.253.133 last_local_hop_level3
+62.115.48.241 last_local_hop_telia
+4.14.244.69 seattle_wa_level3
+4.16.168.34 richland_or_level3
+4.69.140.153 sanfran_ca_level3
+4.15.44.98 arlington_va_level3
