@@ -13,6 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
 RUN sed -i 's/mibs :/# mibs :/g' /etc/snmp/snmp.conf
 
 COPY telegraf.conf /etc/telegraf/telegraf.conf
+COPY entrypoint.sh /
 COPY hosts /tmp/hosts
 
-CMD cat /tmp/hosts >> /etc/hosts; telegraf
+ENTRYPOINT [ "/entrypoint.sh" ]
