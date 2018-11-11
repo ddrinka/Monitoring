@@ -156,6 +156,7 @@ namespace Monitoring.MotorolaCableModem.App
             };
         }
 
+        readonly static DateTimeOffset _unixEpoch = new DateTimeOffset(1970, 1, 1, 0, 0, 0, 0, TimeSpan.Zero);
         public static string ToLineProtocol(this InfluxData d)
         {
             var sb = new StringBuilder();
@@ -179,7 +180,8 @@ namespace Monitoring.MotorolaCableModem.App
                 sb.Append($"{field.Key}={field.Value}");
             }
 
-            sb.Append($" {d.Timestamp.Ticks}00");     //Ticks=nanoseconds/100. Don't multiply here to avoid overflowing long
+            var unixTimeTicks = (d.Timestamp - _unixEpoch).Ticks;
+            sb.Append($" {unixTimeTicks}00");     //Ticks=nanoseconds/100. Don't multiply here to avoid overflowing long
 
             return sb.ToString();
         }
