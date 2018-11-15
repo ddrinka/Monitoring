@@ -52,13 +52,22 @@ namespace Monitoring.Nest.App
             await EnsureLoggedInAsync();
             EnsureSessionIdExists();
 
-            var endpoint = _session.Urls.TransportUrl.AppendPathSegment("v5")
-                .AppendPathSegment("subscribe");
-            var objectDatas = await _flurl.Request(endpoint)
-                .WithHeader("Authorization", "Basic " + _session.AccessToken)
-                .PostJsonAsync(new { Objects = objectHeadersToSubscribe.ToList(), Session = _sessionId, Timeout = 1037 })
-                .ReceiveJson<ObjectDatas>();
-            return objectDatas.Objects;
+            try
+            {
+
+                var endpoint = _session.Urls.TransportUrl.AppendPathSegment("v5")
+                    .AppendPathSegment("subscribe");
+                var objectDatas = await _flurl.Request(endpoint)
+                    .WithHeader("Authorization", "Basic " + _session.AccessToken)
+                    .WithTimeout(30)
+                    .PostJsonAsync(new { Objects = objectHeadersToSubscribe.ToList(), Session = _sessionId, Timeout = 30 })
+                    .ReceiveJson<ObjectDatas>();
+                return objectDatas.Objects;
+            }
+            catch (OperationCanceledException)
+            {
+                return new ObjectData[0];
+            }
         }
 
         public void EnsureSessionIdExists()
