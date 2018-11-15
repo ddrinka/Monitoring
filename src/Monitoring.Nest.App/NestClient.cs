@@ -7,7 +7,6 @@ using Flurl.Http;
 using Flurl.Http.Configuration;
 using Monitoring.Nest.App.Model;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace Monitoring.Nest.App
 {
@@ -23,20 +22,14 @@ namespace Monitoring.Nest.App
         string _sessionId = null;
 
 
-        public NestClient(string email, string password)
+        public NestClient(string email, string password, JsonSerializerSettings serializerSettings)
         {
             _email = email;
             _password = password;
 
             _flurl.Configure(settings =>
             {
-                settings.JsonSerializer = new NewtonsoftJsonSerializer(new JsonSerializerSettings
-                {
-                    ContractResolver = new DefaultContractResolver
-                    {
-                        NamingStrategy = new SnakeCaseNamingStrategy()
-                    }
-                });
+                settings.JsonSerializer = new NewtonsoftJsonSerializer(serializerSettings);
             });
         }
 

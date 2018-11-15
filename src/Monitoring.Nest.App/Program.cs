@@ -1,6 +1,8 @@
-﻿using Monitoring.Infrastructure;
-using System.Threading;
+﻿using System.IO;
 using System.Threading.Tasks;
+using Monitoring.Infrastructure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Monitoring.Nest.App
 {
@@ -8,8 +10,17 @@ namespace Monitoring.Nest.App
     {
         static async Task Main(string[] args)
         {
-            var nestClient = new NestClient(username, password);
-            var nestState = new NestState();
+            var serializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new SnakeCaseNamingStrategy()
+                }
+            };
+
+            var (username, password) = GetUsernamePassword();
+            var nestClient = new NestClient(username, password, serializerSettings);
+            var nestState = new NestState(serializerSettings);
             var userData = await nestClient.GetUserDataAsync();
             nestState.UpdateData(userData.UpdatedBuckets);
             while (true)
@@ -26,6 +37,16 @@ namespace Monitoring.Nest.App
             var influxData = state.ToInfluxData();
             var influxLine = influxData.DataPointsToString();
             await InfluxUploader.Upload("http://influxdb:8086", "drinka", influxLine);
+        }
+
+        static (string username, string password) GetUsernamePassword()
+        {
+            using (var streamReader = new StreamReader("password.txt"))
+            {
+                var line = streamReader.ReadLine().TrimEnd(' ');
+                var split = line.Split(':');
+                return (split[0], split[1]);
+            }
         }
     }
 }

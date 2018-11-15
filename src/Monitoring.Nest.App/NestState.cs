@@ -1,4 +1,5 @@
 ﻿using Monitoring.Nest.App.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,13 @@ namespace Monitoring.Nest.App
 {
     public class NestState
     {
+        readonly JsonSerializerSettings _serializerSettings;
         readonly Dictionary<string, ObjectData> _objectData = new Dictionary<string, ObjectData>();
+
+        public NestState(JsonSerializerSettings serializerSettings)
+        {
+            _serializerSettings = serializerSettings;
+        }
 
         public void UpdateData(IEnumerable<ObjectData> dataToUpdate)
         {
@@ -26,7 +33,9 @@ namespace Monitoring.Nest.App
                 return false;
             }
 
-            value = objectData.Value.ToObject<T>();
+            var valueStr = objectData.Value.ToString();
+            value = JsonConvert.DeserializeObject<T>(valueStr, _serializerSettings);    //We can't use JObject.ToObject because it doesn't respect the Naming Strategy
+
             return true;
         }
 
