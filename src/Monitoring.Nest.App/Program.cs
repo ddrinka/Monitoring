@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Monitoring.Infrastructure;
 using Newtonsoft.Json;
@@ -23,12 +24,24 @@ namespace Monitoring.Nest.App
             var nestState = new NestState(serializerSettings);
             var userData = await nestClient.GetUserDataAsync();
             nestState.UpdateData(userData.UpdatedBuckets);
+            await DeliverToDatabaseAsync(nestState);
+
+            var lastTime = DateTimeOffset.Now;
             while (true)
             {
-                await DeliverToDatabaseAsync(nestState);
-                await Task.Delay(10000);
+                var subscribeDelay = DateTimeOffset.Now - lastTime;
+                if (subscribeDelay < TimeSpan.FromSeconds(10))
+                {
+                    Console.WriteLine($"{nameof(subscribeDelay)}={subscribeDelay} delaying={TimeSpan.FromSeconds(10) - subscribeDelay}");
+                    await Task.Delay(TimeSpan.FromSeconds(10) - subscribeDelay);
+                }
+                else
+                    Console.WriteLine($"{nameof(subscribeDelay)}={subscribeDelay}");
+                lastTime += subscribeDelay;
+
                 var newData = await nestClient.SubscribeAsync(nestState.Headers);
                 nestState.UpdateData(newData);
+                await DeliverToDatabaseAsync(nestState);
             }
         }
 
