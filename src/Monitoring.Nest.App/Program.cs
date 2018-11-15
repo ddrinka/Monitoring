@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using Monitoring.Infrastructure;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Monitoring.Nest.App
@@ -13,13 +14,18 @@ namespace Monitoring.Nest.App
             nestState.UpdateData(userData.UpdatedBuckets);
             while (true)
             {
-                DeliverToDatabase();
-                Thread.Sleep(60);
+                await DeliverToDatabaseAsync(nestState);
+                await Task.Delay(10000);
                 var newData = await nestClient.SubscribeAsync(nestState.Headers);
                 nestState.UpdateData(newData);
             }
         }
 
-        static void DeliverToDatabase() { }
+        static async Task DeliverToDatabaseAsync(NestState state)
+        {
+            var influxData = state.ToInfluxData();
+            var influxLine = influxData.DataPointsToString();
+            await InfluxUploader.Upload("http://influxdb:8086", "drinka", influxLine);
+        }
     }
 }

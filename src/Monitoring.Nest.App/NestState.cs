@@ -29,5 +29,12 @@ namespace Monitoring.Nest.App
             value = objectData.Value.ToObject<T>();
             return true;
         }
+
+        public T GetObjectValue<T>(string key)
+        {
+            if (!TryGetObjectValue<T>(key, out var result))
+                throw new ArgumentException($"Key '{key}' not found");
+            return result;
+        }
     }
 }

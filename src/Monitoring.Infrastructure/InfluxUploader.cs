@@ -8,7 +8,7 @@ namespace Monitoring.Infrastructure
 {
     public static class InfluxUploader
     {
-        public static string DataPointsToString(IEnumerable<InfluxData> datapoints)
+        public static string DataPointsToString(this IEnumerable<InfluxData> datapoints)
         {
             var sb = new StringBuilder();
             foreach (var datapoint in datapoints)
