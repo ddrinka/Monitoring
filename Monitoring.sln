@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B54ACA19-726C-43B3-AC42-B9F026537365}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitoring.MotorolaCableModem.App", "src\Monitoring.MotorolaCableModem.App\Monitoring.MotorolaCableModem.App.csproj", "{2E8D015B-B0EC-47D0-BFBD-0B9154E5A171}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monitoring.MotorolaCableModem.App", "src\Monitoring.MotorolaCableModem.App\Monitoring.MotorolaCableModem.App.csproj", "{2E8D015B-B0EC-47D0-BFBD-0B9154E5A171}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitoring.Nest.App", "src\Monitoring.Nest.App\Monitoring.Nest.App.csproj", "{49E69F54-1A8B-4574-AA9B-1F29333E0634}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monitoring.Infrastructure", "src\Monitoring.Infrastructure\Monitoring.Infrastructure.csproj", "{0E809610-8A03-453D-87DB-952F2758EBBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,22 @@ Global
 		{2E8D015B-B0EC-47D0-BFBD-0B9154E5A171}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E8D015B-B0EC-47D0-BFBD-0B9154E5A171}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E8D015B-B0EC-47D0-BFBD-0B9154E5A171}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49E69F54-1A8B-4574-AA9B-1F29333E0634}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49E69F54-1A8B-4574-AA9B-1F29333E0634}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49E69F54-1A8B-4574-AA9B-1F29333E0634}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49E69F54-1A8B-4574-AA9B-1F29333E0634}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E809610-8A03-453D-87DB-952F2758EBBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E809610-8A03-453D-87DB-952F2758EBBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E809610-8A03-453D-87DB-952F2758EBBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E809610-8A03-453D-87DB-952F2758EBBD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2E8D015B-B0EC-47D0-BFBD-0B9154E5A171} = {B54ACA19-726C-43B3-AC42-B9F026537365}
+		{49E69F54-1A8B-4574-AA9B-1F29333E0634} = {B54ACA19-726C-43B3-AC42-B9F026537365}
+		{0E809610-8A03-453D-87DB-952F2758EBBD} = {B54ACA19-726C-43B3-AC42-B9F026537365}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3D53B9E8-16A4-42B8-93CB-91E08614D24E}
