@@ -34,7 +34,7 @@ namespace Monitoring.Nest.App
 
         public static InfluxData ToInfluxData(Device deviceDetails, Shared sharedDetails, List<Where> whereList, DateTimeOffset timestamp)
         {
-            string where = whereList.Where(w => w.WhereId == deviceDetails.WhereId).Single().Name;
+            string where = whereList.Where(w => w.WhereId == deviceDetails.WhereId).Single().Name.Replace(" ", "-");
 
             var fields = InfluxKeyValueHelper.GetInfluxKeyValuesFromPoco(deviceDetails);
             foreach (var keyVal in InfluxKeyValueHelper.GetInfluxKeyValuesFromPoco(sharedDetails))
@@ -45,14 +45,14 @@ namespace Monitoring.Nest.App
             {
                 Measurement = "nest",
                 Timestamp = timestamp,
-                Tags = new Dictionary<string, string> { { "where", where } },
+                Tags = new Dictionary<string, string> { { "location", where } },
                 Fields = fields
             };
         }
 
         public static InfluxData ToInfluxData(Kryptonite kryptoniteDetails, List<Where> whereList, DateTimeOffset timestamp)
         {
-            string where = whereList.Where(w => w.WhereId == kryptoniteDetails.WhereId).Single().Name;
+            string where = whereList.Where(w => w.WhereId == kryptoniteDetails.WhereId).Single().Name.Replace(" ", "-");
 
             var fields = InfluxKeyValueHelper.GetInfluxKeyValuesFromPoco(kryptoniteDetails);
 
@@ -60,7 +60,7 @@ namespace Monitoring.Nest.App
             {
                 Measurement = "nest_remote",
                 Timestamp = timestamp,
-                Tags = new Dictionary<string, string> { { "where", where } },
+                Tags = new Dictionary<string, string> { { "location", where } },
                 Fields = fields
             };
         }
