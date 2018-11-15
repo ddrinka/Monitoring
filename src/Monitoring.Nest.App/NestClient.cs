@@ -14,6 +14,7 @@ namespace Monitoring.Nest.App
     {
         readonly string _email;
         readonly string _password;
+        readonly JsonSerializerSettings _serializerSettings;
         readonly string _loginUrl = "https://home.nest.com";
         readonly IFlurlClient _flurl = new FlurlClient();
         readonly Random _rand = new Random();
@@ -26,10 +27,11 @@ namespace Monitoring.Nest.App
         {
             _email = email;
             _password = password;
+            _serializerSettings = serializerSettings;
 
             _flurl.Configure(settings =>
             {
-                settings.JsonSerializer = new NewtonsoftJsonSerializer(serializerSettings);
+                settings.JsonSerializer = new NewtonsoftJsonSerializer(_serializerSettings);
             });
         }
 
@@ -52,22 +54,24 @@ namespace Monitoring.Nest.App
             await EnsureLoggedInAsync();
             EnsureSessionIdExists();
 
+            string objectDataStr = null;
             try
             {
-
                 var endpoint = _session.Urls.TransportUrl.AppendPathSegment("v5")
                     .AppendPathSegment("subscribe");
-                var objectDatas = await _flurl.Request(endpoint)
+                objectDataStr = await _flurl.Request(endpoint)
                     .WithHeader("Authorization", "Basic " + _session.AccessToken)
                     .WithTimeout(30)
                     .PostJsonAsync(new { Objects = objectHeadersToSubscribe.ToList(), Session = _sessionId, Timeout = 30 })
-                    .ReceiveJson<ObjectDatas>();
-                return objectDatas.Objects;
+                    .ReceiveString();
             }
-            catch (OperationCanceledException)
-            {
+            catch (OperationCanceledException) { }
+
+            if (string.IsNullOrEmpty(objectDataStr))        //This may be null because the endpoint failed, or because the endpoint returned no new data
                 return new ObjectData[0];
-            }
+
+            var objectDatas = JsonConvert.DeserializeObject<ObjectDatas>(objectDataStr, _serializerSettings);
+            return objectDatas.Objects;
         }
 
         public void EnsureSessionIdExists()
