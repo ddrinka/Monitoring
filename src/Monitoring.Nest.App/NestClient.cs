@@ -16,6 +16,7 @@ namespace Monitoring.Nest.App
         readonly string _password;
         readonly JsonSerializerSettings _serializerSettings;
         readonly string _loginUrl = "https://home.nest.com";
+        readonly int _subscribeTimeout = 873;
         readonly IFlurlClient _flurl = new FlurlClient();
         readonly Random _rand = new Random();
         readonly DateTimeOffset _unixEpoch = new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
@@ -61,8 +62,8 @@ namespace Monitoring.Nest.App
                     .AppendPathSegment("subscribe");
                 objectDataStr = await _flurl.Request(endpoint)
                     .WithHeader("Authorization", "Basic " + _session.AccessToken)
-                    .WithTimeout(30)
-                    .PostJsonAsync(new { Objects = objectHeadersToSubscribe.ToList(), Session = _sessionId, Timeout = 30 })
+                    .WithTimeout(_subscribeTimeout)
+                    .PostJsonAsync(new { Objects = objectHeadersToSubscribe.ToList(), Session = _sessionId, Timeout = _subscribeTimeout })
                     .ReceiveString();
             }
             catch (OperationCanceledException) { }
