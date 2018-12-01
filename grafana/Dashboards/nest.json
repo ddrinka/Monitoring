@@ -15,8 +15,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 1,
-  "iteration": 1543687994077,
+  "id": 2,
+  "iteration": 1543687922361,
   "links": [],
   "panels": [
     {
@@ -25,15 +25,15 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "fill": 0,
+      "fill": 1,
       "gridPos": {
-        "h": 13,
+        "h": 14,
         "w": 24,
         "x": 0,
         "y": 0
       },
       "id": 2,
-      "interval": "30s",
+      "interval": "20s",
       "legend": {
         "avg": false,
         "current": false,
@@ -53,38 +53,10 @@
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "max",
-          "color": "#64b0c8",
-          "fillBelowTo": "min",
-          "lines": false
-        },
-        {
-          "alias": "mean",
-          "color": "#cca300"
-        },
-        {
-          "alias": "min",
-          "lines": false
-        },
-        {
-          "alias": "packet_loss",
-          "bars": true,
-          "color": "#bf1b00",
-          "lines": false,
-          "pointradius": 1,
-          "points": true
-        },
-        {
-          "alias": "inThroughput",
-          "color": "#508642",
-          "fill": 1,
-          "yaxis": 2
-        },
-        {
-          "alias": "outThroughput",
-          "color": "#962d82",
-          "fill": 1,
-          "yaxis": 2
+          "alias": "target",
+          "dashLength": 20,
+          "dashes": true,
+          "linewidth": 3
         }
       ],
       "spaceLength": 10,
@@ -92,22 +64,22 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "max",
+          "alias": "Master-Bedroom",
           "groupBy": [
             {
               "params": [
-                "$__interval*3"
+                "$__interval"
               ],
               "type": "time"
             },
             {
               "params": [
-                "null"
+                "previous"
               ],
               "type": "fill"
             }
           ],
-          "measurement": "ping",
+          "measurement": "nest_remote",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -116,93 +88,7 @@
             [
               {
                 "params": [
-                  "maximum_response_ms"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "url",
-              "operator": "=~",
-              "value": "/^$destination$/"
-            }
-          ]
-        },
-        {
-          "alias": "min",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval*3"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "ping",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "minimum_response_ms"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "min"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "url",
-              "operator": "=~",
-              "value": "/^$destination$/"
-            }
-          ]
-        },
-        {
-          "alias": "mean",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval*8"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "ping",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "average_response_ms"
+                  "current_temperature"
                 ],
                 "type": "field"
               },
@@ -214,14 +100,20 @@
           ],
           "tags": [
             {
-              "key": "url",
+              "key": "location",
+              "operator": "=",
+              "value": "Master-Bedroom"
+            },
+            {
+              "condition": "AND",
+              "key": "location",
               "operator": "=~",
-              "value": "/^$destination$/"
+              "value": "/^$Location$/"
             }
           ]
         },
         {
-          "alias": "packet_loss",
+          "alias": "Kitchen-Hallway",
           "groupBy": [
             {
               "params": [
@@ -231,12 +123,110 @@
             },
             {
               "params": [
-                "null"
+                "previous"
               ],
               "type": "fill"
             }
           ],
-          "measurement": "ping",
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "current_temperature"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Kitchen-Hallway"
+            },
+            {
+              "condition": "AND",
+              "key": "location",
+              "operator": "=~",
+              "value": "/^$Location$/"
+            }
+          ]
+        },
+        {
+          "alias": "Kids-Room",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest_remote",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "current_temperature"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Kids-Room"
+            },
+            {
+              "condition": "AND",
+              "key": "location",
+              "operator": "=~",
+              "value": "/^$Location$/"
+            }
+          ]
+        },
+        {
+          "alias": "target",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "D",
@@ -245,132 +235,21 @@
             [
               {
                 "params": [
-                  "percent_packet_loss"
+                  "target_temperature"
                 ],
                 "type": "field"
               },
               {
                 "params": [],
-                "type": "max"
+                "type": "mean"
               }
             ]
           ],
           "tags": [
             {
-              "key": "url",
-              "operator": "=~",
-              "value": "/^$destination$/"
-            }
-          ]
-        },
-        {
-          "alias": "inThroughput",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval*2"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "interface",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "E",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "ifInOctets"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              },
-              {
-                "params": [
-                  "1s"
-                ],
-                "type": "non_negative_derivative"
-              },
-              {
-                "params": [
-                  "*8"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "ifIndex",
+              "key": "location",
               "operator": "=",
-              "value": "5"
-            }
-          ]
-        },
-        {
-          "alias": "outThroughput",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval*2"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "interface",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "F",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "ifOutOctets"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "max"
-              },
-              {
-                "params": [
-                  "1s"
-                ],
-                "type": "non_negative_derivative"
-              },
-              {
-                "params": [
-                  "*8"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "ifIndex",
-              "operator": "=",
-              "value": "8"
+              "value": "Kitchen-Hallway"
             }
           ]
         }
@@ -378,7 +257,227 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Ping Times And Throughput",
+      "title": "House Temperature",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "celsius",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 4,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "Heater",
+          "color": "#bf1b00"
+        },
+        {
+          "alias": "A/C",
+          "color": "#0a437c"
+        },
+        {
+          "alias": "Fan",
+          "color": "rgb(57, 234, 5)"
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "Fan",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "fan_control_state"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Kitchen-Hallway"
+            }
+          ]
+        },
+        {
+          "alias": "Heater",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "hvac_heater_state"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Kitchen-Hallway"
+            }
+          ]
+        },
+        {
+          "alias": "A/C",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "hvac_ac_state"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Kitchen-Hallway"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "HVAC Control",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -395,16 +494,135 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "msec",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
+          "show": false
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "humidity",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "current_humidity"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Kitchen-Hallway"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Humidity",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "percent",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
           "show": true
         },
         {
-          "decimals": null,
-          "format": "bps",
-          "label": "bps",
+          "format": "short",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -422,24 +640,20 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "fill": 0,
+      "fill": 1,
       "gridPos": {
-        "h": 16,
+        "h": 9,
         "w": 24,
         "x": 0,
-        "y": 13
+        "y": 30
       },
-      "id": 4,
-      "interval": "20s",
+      "id": 8,
       "legend": {
-        "alignAsTable": false,
         "avg": false,
         "current": false,
-        "hideEmpty": false,
-        "hideZero": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
         "values": false
       },
@@ -448,13 +662,12 @@
       "links": [],
       "nullPointMode": "null",
       "percentage": false,
-      "pointradius": 0.5,
+      "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "upstream_power",
-          "linewidth": 2,
+          "alias": "Axis 2",
           "yaxis": 2
         }
       ],
@@ -463,56 +676,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "alias": "downstream_snr",
-          "groupBy": [
-            {
-              "params": [
-                "$__interval*5"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "frequency"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "measurement": "cm_link_status",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "snr"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "direction",
-              "operator": "=",
-              "value": "downstream"
-            }
-          ]
-        },
-        {
-          "alias": "upstream_power",
+          "alias": "KBOI Temperature",
           "groupBy": [
             {
               "params": [
@@ -522,27 +686,21 @@
             },
             {
               "params": [
-                "frequency"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "null"
+                "linear"
               ],
               "type": "fill"
             }
           ],
-          "measurement": "cm_link_status",
+          "measurement": "weather",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "B",
+          "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "power"
+                  "temperature_value"
                 ],
                 "type": "field"
               },
@@ -554,9 +712,9 @@
           ],
           "tags": [
             {
-              "key": "direction",
+              "key": "station",
               "operator": "=",
-              "value": "upstream"
+              "value": "https://api.weather.gov/stations/KBOI"
             }
           ]
         }
@@ -564,13 +722,12 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Cable Modem Channel Stats",
+      "title": "Outside Temperature",
       "tooltip": {
         "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
-      "transparent": false,
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -581,17 +738,16 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": "Downstream SNR",
+          "format": "celsius",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
           "show": true
         },
         {
-          "decimals": null,
-          "format": "short",
-          "label": "Upstream Power",
+          "format": "none",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -613,38 +769,38 @@
         "allValue": null,
         "current": {
           "tags": [],
-          "text": "last_local_hop_telia",
-          "value": "last_local_hop_telia"
+          "text": "Master-Bedroom",
+          "value": "Master-Bedroom"
         },
         "datasource": "InfluxDb",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": null,
         "multi": false,
-        "name": "destination",
+        "name": "Location",
         "options": [
           {
             "selected": false,
-            "text": "google_dns",
-            "value": "google_dns"
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "Kitchen-Hallway",
+            "value": "Kitchen-Hallway"
+          },
+          {
+            "selected": false,
+            "text": "Kids-Room",
+            "value": "Kids-Room"
           },
           {
             "selected": true,
-            "text": "last_local_hop_telia",
-            "value": "last_local_hop_telia"
-          },
-          {
-            "selected": false,
-            "text": "sanfran_ca_level3",
-            "value": "sanfran_ca_level3"
-          },
-          {
-            "selected": false,
-            "text": "seattle_wa_level3",
-            "value": "seattle_wa_level3"
+            "text": "Master-Bedroom",
+            "value": "Master-Bedroom"
           }
         ],
-        "query": "SHOW TAG VALUES WITH KEY=\"url\"",
+        "query": "SHOW TAG VALUES WITH KEY=\"location\"",
         "refresh": 0,
         "regex": "",
         "skipUrlSync": false,
@@ -658,7 +814,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {
@@ -686,8 +842,8 @@
       "30d"
     ]
   },
-  "timezone": "browser",
-  "title": "Network Stats",
-  "uid": "2p47lnBiz",
-  "version": 6
+  "timezone": "",
+  "title": "Nest",
+  "uid": "tKk_6tBmz",
+  "version": 9
 }
