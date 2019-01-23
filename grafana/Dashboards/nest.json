@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 2,
-  "iteration": 1543687922361,
+  "iteration": 1548282939477,
   "links": [],
   "panels": [
     {
@@ -56,6 +56,7 @@
           "alias": "target",
           "dashLength": 20,
           "dashes": true,
+          "fill": 0,
           "linewidth": 3
         }
       ],
@@ -252,6 +253,98 @@
               "value": "Kitchen-Hallway"
             }
           ]
+        },
+        {
+          "alias": "Living-Room",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "current_temperature"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Living-Room"
+            },
+            {
+              "condition": "AND",
+              "key": "location",
+              "operator": "=~",
+              "value": "/^$Location$/"
+            }
+          ]
+        },
+        {
+          "alias": "target",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "target_temperature"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Living-Room"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -338,6 +431,10 @@
         {
           "alias": "Fan",
           "color": "rgb(57, 234, 5)"
+        },
+        {
+          "alias": "Fireplace",
+          "color": "#eab839"
         }
       ],
       "spaceLength": 10,
@@ -470,6 +567,49 @@
               "key": "location",
               "operator": "=",
               "value": "Kitchen-Hallway"
+            }
+          ]
+        },
+        {
+          "alias": "Fireplace",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "hvac_heater_state"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Living-Room"
             }
           ]
         }
@@ -790,12 +930,17 @@
             "value": "Kitchen-Hallway"
           },
           {
+            "selected": true,
+            "text": "Living-Room",
+            "value": "Living-Room"
+          },
+          {
             "selected": false,
             "text": "Kids-Room",
             "value": "Kids-Room"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "Master-Bedroom",
             "value": "Master-Bedroom"
           }
@@ -845,5 +990,5 @@
   "timezone": "",
   "title": "Nest",
   "uid": "tKk_6tBmz",
-  "version": 9
+  "version": 10
 }
