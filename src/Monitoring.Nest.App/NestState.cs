@@ -24,6 +24,10 @@ namespace Monitoring.Nest.App
 
         public IEnumerable<string> Keys => _objectData.Keys;
         public IEnumerable<ObjectHeader> Headers => _objectData.Values;
+        public DateTimeOffset LastUpdateTime { get; set; }
+        public Dictionary<string, TimeSpan> CumulativeState { get; } = new Dictionary<string, TimeSpan>();
+        public Dictionary<string, bool> PreviousState { get; } = new Dictionary<string, bool>();
+
 
         public bool TryGetObjectValue<T>(string key, out T value)
         {
