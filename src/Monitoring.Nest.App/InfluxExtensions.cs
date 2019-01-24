@@ -72,15 +72,20 @@ namespace Monitoring.Nest.App
         {
             if (!state.PreviousState.TryGetValue(key, out var previousState))
                 previousState = false;
-            if (previousState == true && newState == false)
-                state.CumulativeState[key].Add(timestamp - state.LastUpdateTime);
+            if (!state.CumulativeState.TryGetValue(key, out var cumulativeState))
+                cumulativeState = TimeSpan.Zero;
+
+            //Turning from on to off
+            if (previousState == true && newState == false && state.LastUpdateTime != default)
+            {
+                cumulativeState += (timestamp - state.LastUpdateTime);
+                state.CumulativeState[key] = cumulativeState;
+            }
+
             state.PreviousState[key] = newState;
             state.LastUpdateTime = timestamp;
 
-            if (state.CumulativeState.ContainsKey(key))
-                return state.CumulativeState[key];
-            else
-                return TimeSpan.Zero;
+            return cumulativeState;
         }
     }
 }
