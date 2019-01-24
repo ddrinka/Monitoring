@@ -49,6 +49,7 @@ namespace Monitoring.Nest.App
         {
             var influxData = state.ToInfluxData();
             var influxLine = influxData.DataPointsToString();
+            Console.WriteLine(influxLine);
             await InfluxUploader.Upload("http://influxdb:8086", "drinka", influxLine);
         }
 
