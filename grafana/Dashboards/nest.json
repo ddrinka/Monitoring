@@ -396,7 +396,7 @@
       "datasource": null,
       "fill": 1,
       "gridPos": {
-        "h": 5,
+        "h": 10,
         "w": 24,
         "x": 0,
         "y": 14
@@ -435,6 +435,21 @@
         {
           "alias": "Fireplace",
           "color": "#eab839"
+        },
+        {
+          "alias": "Cool",
+          "color": "#447ebc",
+          "yaxis": 2
+        },
+        {
+          "alias": "Heat",
+          "color": "#58140c",
+          "yaxis": 2
+        },
+        {
+          "alias": "Fire",
+          "color": "#e0752d",
+          "yaxis": 2
         }
       ],
       "spaceLength": 10,
@@ -612,6 +627,135 @@
               "value": "Living-Room"
             }
           ]
+        },
+        {
+          "alias": "Cool",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cumulativeCool"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Kitchen-Hallway"
+            }
+          ]
+        },
+        {
+          "alias": "Heat",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cumulativeHeat"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Kitchen-Hallway"
+            }
+          ]
+        },
+        {
+          "alias": "Fire",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "nest",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "G",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cumulativeHeat"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "max"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "location",
+              "operator": "=",
+              "value": "Living-Room"
+            }
+          ]
         }
       ],
       "thresholds": [],
@@ -633,20 +777,20 @@
       },
       "yaxes": [
         {
-          "format": "short",
-          "label": null,
+          "format": "percentunit",
+          "label": "Running",
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": false
+          "show": true
         },
         {
-          "format": "short",
-          "label": null,
+          "format": "m",
+          "label": "Cumulative Run Time",
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": false
+          "show": true
         }
       ],
       "yaxis": {
@@ -665,7 +809,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 24
       },
       "id": 6,
       "legend": {
@@ -785,7 +929,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 35
       },
       "id": 8,
       "legend": {
@@ -900,6 +1044,7 @@
       }
     }
   ],
+  "refresh": "10s",
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
@@ -959,7 +1104,7 @@
     ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -990,5 +1135,5 @@
   "timezone": "",
   "title": "Nest",
   "uid": "tKk_6tBmz",
-  "version": 10
+  "version": 11
 }
