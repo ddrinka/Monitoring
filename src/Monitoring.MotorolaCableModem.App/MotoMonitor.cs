@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
-using HtmlAgilityPack;
 using Newtonsoft.Json;
 
 namespace Monitoring.MotorolaCableModem.App
