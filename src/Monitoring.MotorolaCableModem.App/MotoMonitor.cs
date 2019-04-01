@@ -56,7 +56,7 @@ namespace Monitoring.MotorolaCableModem.App
 
         static IEnumerable<ChannelStatus> ParseDownstreamChannels(HtmlDocument document)
         {
-            var rows = document.DocumentNode.SelectNodes("//td[contains(text(),'Downstream Bonded Channels')]/ancestor::table/tr[2]/td/table/tr");
+            var rows = document.DocumentNode.SelectNodes("//td[contains(text(),'Downstream Bonded Channels')]/ancestor::table//tr[2]/td/table//tr");
             foreach (var row in rows.Skip(1))
             {
                 var columns = row.SelectNodes("td");
@@ -76,7 +76,7 @@ namespace Monitoring.MotorolaCableModem.App
 
         static IEnumerable<ChannelStatus> ParseUpstreamChannels(HtmlDocument document)
         {
-            var rows = document.DocumentNode.SelectNodes("//td[contains(text(),'Upstream Bonded Channels')]/ancestor::table/tr[2]/td/table/tr");
+            var rows = document.DocumentNode.SelectNodes("//td[contains(text(),'Upstream Bonded Channels')]/ancestor::table//tr[2]/td/table//tr");
             foreach (var row in rows.Skip(1))
             {
                 var columns = row.SelectNodes("td");
