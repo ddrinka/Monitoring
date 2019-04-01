@@ -7,15 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.8.10" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Monitoring.Infrastructure\Monitoring.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Page.txt">
+    <None Update="Response.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Flurl;
 using Flurl.Http;
 using HtmlAgilityPack;
+using Newtonsoft.Json;
 
 namespace Monitoring.MotorolaCableModem.App
 {
@@ -14,8 +15,10 @@ namespace Monitoring.MotorolaCableModem.App
         public static async Task<string> RequestCMStatus(string baseUrl)
         {
             return await baseUrl
-                .AppendPathSegment("MotoConnection.html")
-                .GetStringAsync();
+                .AppendPathSegment("HNAP1/")
+                .WithHeader("SOAPACTION", "http://purenetworks.com/HNAP1/GetMultipleHNAPs")
+                .PostStringAsync("{\"GetMultipleHNAPs\": {\"GetMotoStatusStartupSequence\": \"\", \"GetMotoStatusConnectionInfo\": \"\", \"GetMotoStatusDownstreamChannelInfo\": \"\", \"GetMotoStatusUpstreamChannelInfo\": \"\", \"GetMotoLagStatus\": \"\"}}")
+                .ReceiveString();
         }
 
         public static async Task Login(string baseUrl, string username, string password)
@@ -27,7 +30,7 @@ namespace Monitoring.MotorolaCableModem.App
 
         public static string GetTestPage()
         {
-            using (var streamReader = new StreamReader("Page.txt"))
+            using (var streamReader = new StreamReader("Response.json"))
                 return streamReader.ReadToEnd();
         }
 
@@ -37,58 +40,53 @@ namespace Monitoring.MotorolaCableModem.App
                 return streamReader.ReadToEnd().TrimEnd(' ', '\r', '\n');
         }
 
-        public static LinkStatus ParseLinkStatus(string cmStatus)
+        public static (HnapResponse response,IEnumerable<ChannelStatus> downstream, IEnumerable<ChannelStatus> upstream, DateTimeOffset timestamp) ParseHnapResponse(string response)
         {
             var timestamp = DateTimeOffset.Now;
 
-            var document = new HtmlDocument();
-            document.LoadHtml(cmStatus);
+            var result = JsonConvert.DeserializeObject<HnapResponse>(response);
+            var downstream = ParseDownstreamChannels(result.GetMultipleHNAPsResponse.GetMotoStatusDownstreamChannelInfoResponse.MotoConnDownstreamChannel);
+            var upstream = ParseUpstreamChannels(result.GetMultipleHNAPsResponse.GetMotoStatusUpstreamChannelInfoResponse.MotoConnUpstreamChannel);
 
-            var result = new LinkStatus
-            {
-                Timestamp = timestamp,
-                Downstream = ParseDownstreamChannels(document),
-                Upstream = ParseUpstreamChannels(document)
-            };
-
-            return result;
+            return (result, downstream, upstream, timestamp);
         }
 
-        static IEnumerable<ChannelStatus> ParseDownstreamChannels(HtmlDocument document)
+        static IEnumerable<ChannelStatus> ParseDownstreamChannels(string downstream)
         {
-            var rows = document.DocumentNode.SelectNodes("//td[contains(text(),'Downstream Bonded Channels')]/ancestor::table//tr[2]/td/table//tr");
-            foreach (var row in rows.Skip(1))
+            var rows = downstream.Split("|+|");
+            foreach (var row in rows)
             {
-                var columns = row.SelectNodes("td");
+                var columns = row.Split("^");
                 yield return new ChannelStatus
                 {
-                    Channel = int.Parse(columns[0].InnerText),
-                    LockStatus = columns[1].InnerText,
-                    Modulation = columns[2].InnerText,
-                    ChannelId = int.Parse(columns[3].InnerText),
-                    Frequency = decimal.Parse(columns[4].InnerText),
-                    Power = float.Parse(columns[5].InnerText),
-                    SNR = float.Parse(columns[6].InnerText),
-                    CorrectedFrames = int.Parse(columns[7].InnerText)
+                    Channel = int.Parse(columns[0]),
+                    LockStatus = columns[1],
+                    Modulation = columns[2],
+                    ChannelId = int.Parse(columns[3]),
+                    Frequency = decimal.Parse(columns[4]),
+                    Power = float.Parse(columns[5]),
+                    SNR = float.Parse(columns[6]),
+                    CorrectedFrames = int.Parse(columns[7]),
+                    UncorrectedFrames = int.Parse(columns[8])
                 };
             }
         }
 
-        static IEnumerable<ChannelStatus> ParseUpstreamChannels(HtmlDocument document)
+        static IEnumerable<ChannelStatus> ParseUpstreamChannels(string upstream)
         {
-            var rows = document.DocumentNode.SelectNodes("//td[contains(text(),'Upstream Bonded Channels')]/ancestor::table//tr[2]/td/table//tr");
-            foreach (var row in rows.Skip(1))
+            var rows = upstream.Split("|+|");
+            foreach (var row in rows)
             {
-                var columns = row.SelectNodes("td");
+                var columns = row.Split("^");
                 yield return new ChannelStatus
                 {
-                    Channel = int.Parse(columns[0].InnerText),
-                    LockStatus = columns[1].InnerText,
-                    Modulation = columns[2].InnerText,
-                    ChannelId = int.Parse(columns[3].InnerText),
-                    SymbolRate = int.Parse(columns[4].InnerText),
-                    Frequency = decimal.Parse(columns[5].InnerText),
-                    Power = float.Parse(columns[6].InnerText),
+                    Channel = int.Parse(columns[0]),
+                    LockStatus = columns[1],
+                    Modulation = columns[2],
+                    ChannelId = int.Parse(columns[3]),
+                    SymbolRate = int.Parse(columns[4]),
+                    Frequency = decimal.Parse(columns[5]),
+                    Power = float.Parse(columns[6]),
                 };
             }
         }
