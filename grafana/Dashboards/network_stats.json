@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1548312317526,
+  "iteration": 1565675390544,
   "links": [],
   "panels": [
     {
@@ -583,11 +583,12 @@
       },
       "yaxes": [
         {
+          "decimals": null,
           "format": "short",
           "label": "Downstream SNR",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "37",
           "show": true
         },
         {
@@ -596,7 +597,7 @@
           "label": "Upstream Power",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "40",
           "show": true
         }
       ],
@@ -660,7 +661,7 @@
     ]
   },
   "time": {
-    "from": "now-90d",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -691,5 +692,5 @@
   "timezone": "browser",
   "title": "Network Stats",
   "uid": "2p47lnBiz",
-  "version": 7
+  "version": 8
 }
