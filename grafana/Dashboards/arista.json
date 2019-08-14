@@ -26,7 +26,7 @@
       "datasource": "InfluxDb",
       "fill": 1,
       "gridPos": {
-        "h": 12,
+        "h": 11,
         "w": 24,
         "x": 0,
         "y": 0
@@ -53,12 +53,15 @@
         {
           "alias": "warning",
           "color": "#e5ac0e",
-          "fill": 0
+          "fill": 0,
+          "linewidth": 3
         },
         {
           "alias": "critical",
           "color": "#bf1b00",
-          "fill": 0
+          "fill": 0,
+          "fillBelowTo": "warning",
+          "linewidth": 3
         }
       ],
       "spaceLength": 10,
@@ -288,10 +291,10 @@
       "datasource": null,
       "fill": 1,
       "gridPos": {
-        "h": 12,
+        "h": 14,
         "w": 24,
         "x": 0,
-        "y": 12
+        "y": 11
       },
       "id": 4,
       "legend": {
@@ -316,16 +319,20 @@
           "alias": "warning",
           "color": "#e5ac0e",
           "fill": 0,
-          "legend": false
+          "legend": false,
+          "linewidth": 3
         },
         {
           "alias": "critical",
           "color": "#bf1b00",
           "fill": 0,
-          "legend": false
+          "fillBelowTo": "warning",
+          "legend": false,
+          "linewidth": 3
         },
         {
           "alias": "/Fan.*/",
+          "dashes": true,
           "fill": 0,
           "yaxis": 2
         },
@@ -611,12 +618,13 @@
       "datasource": null,
       "fill": 1,
       "gridPos": {
-        "h": 14,
+        "h": 13,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 25
       },
       "id": 6,
+      "interval": "3m",
       "legend": {
         "avg": false,
         "current": false,
@@ -655,7 +663,7 @@
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "$__interval*10"
               ],
               "type": "time"
             },
@@ -710,7 +718,7 @@
           "groupBy": [
             {
               "params": [
-                "$__interval"
+                "$__interval*10"
               ],
               "type": "time"
             },
@@ -802,6 +810,7 @@
       }
     }
   ],
+  "refresh": false,
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
@@ -809,7 +818,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -840,5 +849,5 @@
   "timezone": "",
   "title": "Arista",
   "uid": "TP08pIOZk",
-  "version": 4
+  "version": 6
 }
