@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "id": 1,
-  "iteration": 1565675390544,
+  "iteration": 1606380419051,
   "links": [],
   "panels": [
     {
@@ -26,6 +26,7 @@
       "dashes": false,
       "datasource": null,
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 13,
         "w": 24,
@@ -47,6 +48,9 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -378,6 +382,7 @@
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
       "title": "Ping Times And Throughput",
       "tooltip": {
@@ -425,6 +430,7 @@
       "dashes": false,
       "datasource": null,
       "fill": 0,
+      "fillGradient": 0,
       "gridPos": {
         "h": 16,
         "w": 24,
@@ -449,14 +455,18 @@
       "linewidth": 1,
       "links": [],
       "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
       "percentage": false,
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [
         {
-          "alias": "upstream_power",
-          "linewidth": 2,
+          "alias": "outside_temperature",
+          "color": "rgba(31, 96, 196, 0.4)",
+          "linewidth": 3,
           "yaxis": 2
         }
       ],
@@ -486,6 +496,7 @@
               "type": "fill"
             }
           ],
+          "hide": false,
           "measurement": "cm_link_status",
           "orderByTime": "ASC",
           "policy": "default",
@@ -535,6 +546,7 @@
               "type": "fill"
             }
           ],
+          "hide": true,
           "measurement": "cm_link_status",
           "orderByTime": "ASC",
           "policy": "default",
@@ -561,18 +573,61 @@
               "value": "upstream"
             }
           ]
+        },
+        {
+          "alias": "outside_temperature",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "weather",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "temperature_value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "station",
+              "operator": "=",
+              "value": "https://api.weather.gov/stations/KBOI"
+            }
+          ]
         }
       ],
       "thresholds": [],
       "timeFrom": null,
+      "timeRegions": [],
       "timeShift": null,
-      "title": "Cable Modem Channel Stats",
+      "title": "Downstream Power",
       "tooltip": {
         "shared": true,
         "sort": 0,
         "value_type": "individual"
       },
-      "transparent": false,
       "type": "graph",
       "xaxis": {
         "buckets": null,
@@ -587,17 +642,197 @@
           "format": "short",
           "label": "Downstream SNR",
           "logBase": 1,
-          "max": null,
-          "min": "37",
+          "max": "40",
+          "min": "32",
           "show": true
         },
         {
           "decimals": null,
+          "format": "celsius",
+          "label": "Outside Temperature",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 0,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 14,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 6,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "outside_temperature",
+          "color": "rgba(31, 96, 196, 0.4)",
+          "linewidth": 3,
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "alias": "upstream_power",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "frequency"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "cm_link_status",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "direction",
+              "operator": "=",
+              "value": "upstream"
+            }
+          ]
+        },
+        {
+          "alias": "outside_temperature",
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "linear"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "weather",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "temperature_value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "station",
+              "operator": "=",
+              "value": "https://api.weather.gov/stations/KBOI"
+            }
+          ]
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Upstream Power",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
           "format": "short",
           "label": "Upstream Power",
           "logBase": 1,
           "max": null,
-          "min": "40",
+          "min": "28",
+          "show": true
+        },
+        {
+          "format": "celsius",
+          "label": "Outside Temperature",
+          "logBase": 1,
+          "max": null,
+          "min": null,
           "show": true
         }
       ],
@@ -607,7 +842,8 @@
       }
     }
   ],
-  "schemaVersion": 16,
+  "refresh": false,
+  "schemaVersion": 20,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -616,10 +852,11 @@
         "allValue": null,
         "current": {
           "tags": [],
-          "text": "last_local_hop_telia",
-          "value": "last_local_hop_telia"
+          "text": "google_dns",
+          "value": "google_dns"
         },
         "datasource": "InfluxDb",
+        "definition": "",
         "hide": 0,
         "includeAll": false,
         "label": null,
@@ -627,12 +864,12 @@
         "name": "destination",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "google_dns",
             "value": "google_dns"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "last_local_hop_telia",
             "value": "last_local_hop_telia"
           },
@@ -661,7 +898,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {
@@ -692,5 +929,5 @@
   "timezone": "browser",
   "title": "Network Stats",
   "uid": "2p47lnBiz",
-  "version": 8
+  "version": 14
 }
