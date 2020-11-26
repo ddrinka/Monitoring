@@ -1,7 +1,7 @@
-FROM telegraf:1.8
+FROM telegraf:1.16
 
 #Enable non-free repo
-RUN sed -i "s/stretch main/stretch main non-free/" /etc/apt/sources.list
+RUN sed -i "s/buster main/buster main non-free/" /etc/apt/sources.list
 
 #Install MIBs
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
