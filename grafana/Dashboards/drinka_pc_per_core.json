@@ -16,7 +16,7 @@
   "gnetId": 11601,
   "graphTooltip": 1,
   "id": 6,
-  "iteration": 1606380443008,
+  "iteration": 1606380797568,
   "links": [],
   "panels": [
     {
@@ -25,6 +25,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 5,
       "gridPos": {
@@ -33,6 +40,7 @@
         "x": 0,
         "y": 0
       },
+      "hiddenSeries": false,
       "id": 7,
       "interval": "5s",
       "legend": {
@@ -48,9 +56,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -241,6 +250,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 5,
       "gridPos": {
@@ -268,9 +284,10 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
@@ -544,6 +561,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 5,
       "gridPos": {
@@ -571,15 +595,15 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
-      "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606380443008,
+      "repeatIteration": 1606380797568,
       "repeatPanelId": 2,
       "scopedVars": {
         "cpu_instance": {
@@ -849,6 +873,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 5,
       "gridPos": {
@@ -876,15 +907,15 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
-      "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606380443008,
+      "repeatIteration": 1606380797568,
       "repeatPanelId": 2,
       "scopedVars": {
         "cpu_instance": {
@@ -1154,6 +1185,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 5,
       "gridPos": {
@@ -1181,15 +1219,15 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
-      "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606380443008,
+      "repeatIteration": 1606380797568,
       "repeatPanelId": 2,
       "scopedVars": {
         "cpu_instance": {
@@ -1459,6 +1497,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 5,
       "gridPos": {
@@ -1486,15 +1531,15 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
-      "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606380443008,
+      "repeatIteration": 1606380797568,
       "repeatPanelId": 2,
       "scopedVars": {
         "cpu_instance": {
@@ -1764,6 +1809,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 5,
       "gridPos": {
@@ -1791,15 +1843,15 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
-      "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606380443008,
+      "repeatIteration": 1606380797568,
       "repeatPanelId": 2,
       "scopedVars": {
         "cpu_instance": {
@@ -2069,6 +2121,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 5,
       "gridPos": {
@@ -2096,15 +2155,15 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
-      "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606380443008,
+      "repeatIteration": 1606380797568,
       "repeatPanelId": 2,
       "scopedVars": {
         "cpu_instance": {
@@ -2374,6 +2433,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 3,
       "fillGradient": 5,
       "gridPos": {
@@ -2401,15 +2467,15 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
-      "repeat": null,
       "repeatDirection": "h",
-      "repeatIteration": 1606380443008,
+      "repeatIteration": 1606380797568,
       "repeatPanelId": 2,
       "scopedVars": {
         "cpu_instance": {
@@ -2675,7 +2741,7 @@
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 20,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2683,11 +2749,13 @@
       {
         "allValue": null,
         "current": {
+          "selected": false,
           "text": "DDRINKA",
           "value": "DDRINKA"
         },
         "datasource": "InfluxDb",
         "definition": "SHOW TAG VALUES WITH KEY = \"host\" WHERE app = 'ohm'\n",
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": null,
@@ -2708,13 +2776,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Power with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -2735,13 +2807,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Temperature with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -2762,13 +2838,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Voltage with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -2789,13 +2869,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values with key = hardware WHERE hardware_type = 'NIC' and app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -2816,13 +2900,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Fan with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -2843,13 +2931,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Control with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -2870,13 +2962,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
+          "selected": true,
+          "text": [
+            "All"
+          ],
           "value": [
             "$__all"
           ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Clock with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -2905,6 +3001,7 @@
         },
         "datasource": "InfluxDb",
         "definition": "SHOW TAG VALUES WITH KEY=sensor WHERE app='ohm' and hardware_type='CPU'",
+        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Visible CPUs",

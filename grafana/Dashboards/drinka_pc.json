@@ -16,7 +16,7 @@
   "gnetId": 11601,
   "graphTooltip": 1,
   "id": 5,
-  "iteration": 1606380368630,
+  "iteration": 1606380782209,
   "links": [],
   "panels": [
     {
@@ -25,6 +25,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 2,
       "gridPos": {
@@ -51,9 +58,10 @@
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -177,6 +185,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -203,9 +218,10 @@
       "maxPerRow": 3,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -331,6 +347,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -357,9 +380,10 @@
       "maxPerRow": 3,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 0.5,
       "points": false,
       "renderer": "flot",
@@ -491,6 +515,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -518,9 +549,10 @@
       "maxPerRow": 3,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -658,6 +690,13 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "InfluxDb",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
@@ -685,9 +724,10 @@
       "maxPerRow": 3,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.4",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -802,7 +842,7 @@
     }
   ],
   "refresh": false,
-  "schemaVersion": 20,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -810,11 +850,13 @@
       {
         "allValue": null,
         "current": {
+          "selected": false,
           "text": "DDRINKA",
           "value": "DDRINKA"
         },
         "datasource": "InfluxDb",
         "definition": "SHOW TAG VALUES WITH KEY = \"host\" WHERE app = 'ohm'\n",
+        "error": null,
         "hide": 0,
         "includeAll": false,
         "label": null,
@@ -835,11 +877,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Power with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -860,11 +908,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Temperature with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -885,11 +939,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Voltage with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -910,11 +970,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values with key = hardware WHERE hardware_type = 'NIC' and app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -935,11 +1001,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Fan with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -960,11 +1032,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Control with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
@@ -985,11 +1063,17 @@
       {
         "allValue": null,
         "current": {
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": "InfluxDb",
         "definition": "show tag values from Clock with key = hardware_type WHERE app = 'ohm'",
+        "error": null,
         "hide": 2,
         "includeAll": true,
         "label": null,
