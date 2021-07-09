@@ -1,4 +1,4 @@
-FROM telegraf:1.16
+FROM telegraf:1.19
 
 #Enable non-free repo
 RUN sed -i "s/buster main/buster main non-free/" /etc/apt/sources.list
